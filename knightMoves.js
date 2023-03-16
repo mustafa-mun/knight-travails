@@ -13,14 +13,37 @@ class Graph {
     }
   }
 
-  addEdge(u, v) {
+  addEdges() {
     // This needs to add all possible edges for per vertex(square)
-    this.gameBoard.get(u).push(v);
-    this.gameBoard.get(v).push(u);
+    for (let [key] of this.gameBoard) {
+      const keyArr = key.split(",");
+      const x = parseInt(keyArr[0]);
+      const y = parseInt(keyArr[1]);
+
+      const direction = { 
+        1: [x + 1, y + 2],
+        2: [x + 2, y + 1],
+        3: [x + 2, y - 1],
+        4: [x + 1, y - 2],
+        5: [x - 1, y - 2],
+        6: [x - 2, y - 1],
+        7: [x - 2, y + 1],
+        8: [x - 1, y + 2],
+      };
+      for (let clock in direction) {
+        const move = direction[clock].toString();
+        if (
+          this.gameBoard.has(move) &&
+          !this.gameBoard.get(key).includes(move)
+        ) {
+          this.gameBoard.get(key).push(move);
+        }
+      }
+    }
   }
 }
 
 const graph = new Graph();
-graph.addVertex()
-
-console.log(graph);
+graph.addVertex();
+graph.addEdges();
+console.log(graph.gameBoard);
