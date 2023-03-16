@@ -1,13 +1,12 @@
 // Our gameboard is will be an undirected graph
-
 class Graph {
   constructor() {
     this.gameBoard = new Map();
   }
 
   addVertex() {
-    for (let i = 0; i < 8; i += 1) {
-      for (let j = 0; j < 8; j += 1) {
+    for (let i = 0; i < 8; i ++) {
+      for (let j = 0; j < 8; j ++) {
         this.gameBoard.set(`${[i, j]}`, []);
       }
     }
@@ -58,12 +57,19 @@ class Graph {
         }
       }
     }
-    return paths;
+    let count = -1
+    console.log("Your moves...");
+    paths[0].forEach(item => {
+      count++
+      console.log(item);
+    })
+    console.log(`You made it with ${count} moves`);
+    return paths
   }
 }
 
 const graph = new Graph();
 graph.addVertex();
 graph.addEdges();
-// console.log(graph.gameBoard);
-console.log(graph.knightMoves(graph.gameBoard, "0,0", "4,4"));
+graph.knightMoves(graph.gameBoard, "5,6", "1,7")
+
