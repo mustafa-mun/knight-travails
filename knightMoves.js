@@ -14,13 +14,12 @@ class Graph {
   }
 
   addEdges() {
-    // This needs to add all possible edges for per vertex(square)
     for (let [key] of this.gameBoard) {
       const keyArr = key.split(",");
       const x = parseInt(keyArr[0]);
       const y = parseInt(keyArr[1]);
 
-      const direction = { 
+      const direction = {
         1: [x + 1, y + 2],
         2: [x + 2, y + 1],
         3: [x + 2, y - 1],
@@ -41,9 +40,30 @@ class Graph {
       }
     }
   }
+
+  knightMoves(list, start, end) {
+    let paths = [];
+    let visited = new Set();
+    let queue = [];
+    queue.push([start, [start]]);
+    while (queue.length) {
+      let [current, path] = queue.shift();
+      visited.add(current);
+      if (current === end) {
+        paths.push(path);
+      }
+      for (let neighbor of list.get(current)) {
+        if (!visited.has(neighbor)) {
+          queue.push([neighbor, [...path, neighbor]]);
+        }
+      }
+    }
+    return paths;
+  }
 }
 
 const graph = new Graph();
 graph.addVertex();
 graph.addEdges();
-console.log(graph.gameBoard);
+// console.log(graph.gameBoard);
+console.log(graph.knightMoves(graph.gameBoard, "0,0", "4,4"));
