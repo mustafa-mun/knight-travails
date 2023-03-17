@@ -5,8 +5,8 @@ class Graph {
   }
 
   addVertex() {
-    for (let i = 0; i < 8; i ++) {
-      for (let j = 0; j < 8; j ++) {
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
         this.gameBoard.set(`${[i, j]}`, []);
       }
     }
@@ -57,19 +57,22 @@ class Graph {
         }
       }
     }
-    let count = -1
+    let count = -1;
     console.log("Your moves...");
-    paths[0].forEach(item => {
-      count++
-      console.log(item);
-    })
-    console.log(`You made it with ${count} moves`);
-    return paths
+    paths[0].forEach((item) => {
+      count++;
+      if(item !== paths[0][paths[0].length - 1]) {
+        console.log(`${item} ->`);
+      } else {
+        console.log(item);
+      }
+    });
+    console.log(`You made it in ${count} moves`);
+    return paths;
   }
 }
 
 const graph = new Graph();
 graph.addVertex();
 graph.addEdges();
-graph.knightMoves(graph.gameBoard, "5,6", "1,7")
-
+graph.knightMoves(graph.gameBoard, "5,6", "1,7");
